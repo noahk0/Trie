@@ -25,13 +25,14 @@ class WordDictionary:
             if i == len(word):
                 return cur.end
 
-            if word[i] == '.':
-                for candidate in cur.next:
-                    if dfs(i + 1, cur.next[candidate]):
-                        return True
-            elif word[i] in cur.next:
+            if word[i] in cur.next:
                 return dfs(i + 1, cur.next[word[i]])
+
+            if word[i] != '.':
+                return False
             
-            return False
+            for candidate in cur.next:
+                if dfs(i + 1, cur.next[candidate]):
+                    return True
 
         return dfs(0, self.root)
